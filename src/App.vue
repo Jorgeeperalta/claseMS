@@ -49,26 +49,47 @@
         ></v-progress-circular>
       </div>
       <router-view
-    /></v-main>
+    />
+    <Grafico></Grafico>
+    <v-container>
+    <v-row align="center" justify="center">
+      <v-col
+      cols="auto"
+      >
+    <Radar/>
+    </v-col>
+    <v-col cols="auto">   <Grafico></Grafico></v-col>
+    </v-row>
+    </v-container>
+  </v-main>
   </v-app>
 </template>
 
 <script>
+import Grafico from './components/Grafico.vue'
+import Radar from './components/Radar.vue'
 import { useTheme } from "vuetify";
 import { menuStore } from "./store/store";
 import { globalData } from "@/main";
 
+
 export default {
+  components:{
+    Grafico,
+    Radar
+  },
   name: "App",
   data: () => ({
     store: menuStore(),
     menu: [],
     globalData: globalData,
+ 
+
   }),
   async beforeCreate() {
     const theme = useTheme();
     localStorage.setItem("token", this.$route.query.t);
-    let dm = 1;
+    let dm = 0;
     localStorage.setItem("dm", dm);
     theme.global.name.value = dm == 1 ? "dark" : "light";
   },
